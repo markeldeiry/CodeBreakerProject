@@ -11,12 +11,13 @@ function guess() {
     if(!validateInput(input.value)) {
       return;
     }
+    attempt.value++;
 
     if(getResults(input.value)) {
       setMessage('You Win! :)');
       showAnswer(true);
       showReplay();
-    }else if (attempt.value >= 10) {
+    } else if (attempt.value >= 10) {
       setMessage('You Lose! :(');
       showAnswer(false);
       showReplay();
@@ -24,7 +25,6 @@ function guess() {
       setMessage('Incorrect, try again.');
     }
 
-    attempt.value++;
 }
 
 function setHiddenFields() {
@@ -52,20 +52,19 @@ function getResults(input) {
   for(i=0; i < input.length; i++) {
     if(input.charAt(i) == answer.value.charAt(i)) {
       html += '<span class="glyphicon glyphicon-ok"></span>';
-    }else if(answer.value.indexOf(input.charAt(i)) > -1) {
+    } else if(answer.value.indexOf(input.charAt(i)) > -1) {
       html += '<span class="glyphicon glyphicon-transfer"></span>';
-    }else {
+    } else {
       html += '<span class="glyphicon glyphicon-remove"></span>';
     }
   }
+  html += '</div></div>';
+  document.getElementById('results').innerHTML += html;
 
   if(input == answer.value) {
     return true;
   }
   return false;
-
-  html += '</div></div>';
-  document.getElementById('results').innerHTML += html;
 }
 
 function showAnswer(success) {
